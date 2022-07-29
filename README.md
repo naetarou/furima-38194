@@ -26,23 +26,24 @@ Things you may want to cover:
 
 ## users テーブル
 
-| Column             | Type    | Options     |
-| ------------------ | ------- | ----------- |
-| nickname           | string  | null: false |
-| email              | string  | null: false |
-| encrypted_password | string  | null: false |
-| last_name          | string  | null: false |
-| first_name         | string  | null: false |
-| last_name_kana     | string  | null: false |
-| first_name_kana    | string  | null: false |
-| birthday           |         |             |
+| Column             | Type    | Options                   |
+| ------------------ | ------- | ------------------------- |
+| nickname           | string  | null: false               |
+| email              | string  | null: false, unique: true |
+| encrypted_password | string  | null: false               |
+| last_name          | string  | null: false               |
+| first_name         | string  | null: false               |
+| last_name_kana     | string  | null: false               |
+| first_name_kana    | string  | null: false               |
+| birthday           | integer | null: false               |
 
-### user_active_hash
-| birthday     |
-#### Association
+
+
+### Association
 
 - has_many :items
 - has_many :orders
+- has_many :addresses
 
 
 
@@ -53,26 +54,17 @@ Things you may want to cover:
 | product             | string     | null: false                   |
 | product_description | text       | null: false                   |
 | price               | integer    | null: false                   |
+| category_id         | integer    | null: false                   |
+| condition_id        | integer    | null: false                   |
+| bearer_id           | integer    | null: false                   |
+| prefecure_id        | integer    | null: false                   |
+| ship_date_id        | integer    | null: false                   |
 | user_id             | references | null: false, foreign_key: true|
-| category            |            |                               |
-| product_status      |            |                               |
-| shopping_fee_bearer |            |                               |
-| shopping_area       |            |                               |
-| shopping_days       |            |                               |
 
-
-### items_active_hash
-| category            |
-| product_status      |
-| shopping_fee_bearer |
-| shopping_area       |
-| shopping_days       |
-
-#### Association
+### Association
 
 - belongs_to :user
 - has_one :order
-
 
 
 
@@ -80,18 +72,34 @@ Things you may want to cover:
 
 | Column       | Type       | Options                        |
 | ------------ | ---------- | ------------------------------ |
-| postcord     | integer    | null: false                    |
-| city         | string     | null: false                    |
-| block        | string     | null: false                    |
-| building     | string     |                                |
-| phone_number | integer    | null: false                    |
 | user_id      | references | null: false, foreign_key: true |
-| prefefecure  |            |                                |
+| items_id     | references | null: false, foreign_key: true |
+| addresses_id | references | null: false, foreign_key: true |
 
-### orders_active_hash
-| prefefecure  |
 
-#### Association
+### Association
 
 - belongs_to :user
 - belongs_to :items
+- has_one :addresses
+
+
+
+
+## addresses テーブル
+
+| Column         | Type       | Options                        |
+| -------------- | ---------- | ------------------------------ |
+| postcord       | string     | null: false                    |
+| prefefecure_id | integer    | null: false                    |
+| city           | string     | null: false                    |
+| block          | string     | null: false                    |
+| building       | string     |                                |
+| phone_number   | string     | null: false                    |
+| user_id        | references | null: false, foreign_key: true |
+| order_id       | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :user
+- belongs_to :order
