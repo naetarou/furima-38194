@@ -35,7 +35,7 @@ Things you may want to cover:
 | first_name         | string  | null: false               |
 | last_name_kana     | string  | null: false               |
 | first_name_kana    | string  | null: false               |
-| birthday           | integer | null: false               |
+| birthday           | date    | null: false               |
 
 
 
@@ -43,8 +43,6 @@ Things you may want to cover:
 
 - has_many :items
 - has_many :orders
-- has_many :addresses
-
 
 
 ## items テーブル
@@ -59,7 +57,7 @@ Things you may want to cover:
 | bearer_id           | integer    | null: false                   |
 | prefecure_id        | integer    | null: false                   |
 | ship_date_id        | integer    | null: false                   |
-| user_id             | references | null: false, foreign_key: true|
+| user                | references | null: false, foreign_key: true|
 
 ### Association
 
@@ -70,18 +68,17 @@ Things you may want to cover:
 
 ## orders テーブル
 
-| Column       | Type       | Options                        |
-| ------------ | ---------- | ------------------------------ |
-| user_id      | references | null: false, foreign_key: true |
-| items_id     | references | null: false, foreign_key: true |
-| addresses_id | references | null: false, foreign_key: true |
+| Column    | Type       | Options                        |
+| --------- | ---------- | ------------------------------ |
+| user      | references | null: false, foreign_key: true |
+| items     | references | null: false, foreign_key: true |
 
 
 ### Association
 
 - belongs_to :user
-- belongs_to :items
-- has_one :addresses
+- belongs_to :item
+- has_one :addresse
 
 
 
@@ -96,10 +93,9 @@ Things you may want to cover:
 | block          | string     | null: false                    |
 | building       | string     |                                |
 | phone_number   | string     | null: false                    |
-| user_id        | references | null: false, foreign_key: true |
-| order_id       | references | null: false, foreign_key: true |
+| user           | references | null: false, foreign_key: true |
+| order         | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :user
 - belongs_to :order
