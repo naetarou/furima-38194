@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :item do
     product             {"hoge"}
-    image               {}
     product_description {"こんにちは"}
     price               {5000}
     category_id         {2}
