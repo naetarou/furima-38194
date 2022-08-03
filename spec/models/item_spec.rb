@@ -31,30 +31,30 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Product description is too long (maximum is 1000 characters)")
       end
-      it 'categoryが空では出品できない' do
-        @item.category_id = ''
+      it 'categoryが1では出品できない' do
+        @item.category_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Category can't be blank")
+        expect(@item.errors.full_messages).to include("Category must be other than 1")
       end
-      it 'conditionが空では出品できない' do
-        @item.condition_id = ''
+      it 'conditionが1では出品できない' do
+        @item.condition_id =1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Condition can't be blank")
+        expect(@item.errors.full_messages).to include("Condition must be other than 1")
       end
-      it 'bearerが空では出品できない' do
-        @item.bearer_id = ''
+      it 'bearerが1では出品できない' do
+        @item.bearer_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Bearer can't be blank")
+        expect(@item.errors.full_messages).to include("Bearer must be other than 1")
       end
-      it 'prefecureが空では出品できない' do
-        @item.prefecure_id = ''
+      it 'prefecureが1では出品できない' do
+        @item.prefecure_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Prefecure can't be blank")
+        expect(@item.errors.full_messages).to include("Prefecure must be other than 1")
       end
-      it 'ship_dateが空では出品できない' do
-        @item.ship_date_id = ''
+      it 'ship_dateが1では出品できない' do
+        @item.ship_date_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Ship date can't be blank")
+        expect(@item.errors.full_messages).to include("Ship date must be other than 1")
       end
       it 'priceが空では出品できない' do
         @item.price = ''
@@ -73,6 +73,11 @@ RSpec.describe Item, type: :model do
       end
       it 'priceが300円以下では出品できない' do
         @item.price = '10000000'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price  must be within 300~9999999")
+      end
+      it 'priceが全角数字では出品できない' do
+        @item.price = '１０００'
         @item.valid?
         expect(@item.errors.full_messages).to include("Price  must be within 300~9999999")
       end
