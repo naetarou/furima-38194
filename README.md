@@ -87,7 +87,7 @@ Things you may want to cover:
 
 | Column         | Type       | Options                        |
 | -------------- | ---------- | ------------------------------ |
-| postcord       | string     | null: false                    |
+| postcoed       | string     | null: false                    |
 | prefefecure_id | integer    | null: false                    |
 | city           | string     | null: false                    |
 | block          | string     | null: false                    |
